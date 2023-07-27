@@ -8,7 +8,7 @@ import com.gralliams.okwuass.feature_dictionary.data.remote.dto.ExampleDto
 import com.gralliams.okwuass.feature_dictionary.data.remote.dto.TensesDto
 import com.gralliams.okwuass.feature_dictionary.domain.model.WordInfo
 
-@Entity()
+@Entity
 data class WordInfoEntity(
     val definitions: List<String>,
     val pronunciation: String,
