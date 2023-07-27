@@ -12,9 +12,6 @@ import com.gralliams.okwuass.feature_dictionary.domain.model.WordInfo
 data class WordInfoEntity(
     val definitions: List<String>,
     val pronunciation: String,
-    val dialects: Map<String, DialectDto>,
-    val tenses: TensesDto,
-    val attributes: AttributesDto,
     val relatedTerms: List<String>,
     val word: String,
     val examples: List<ExampleDto>,
@@ -26,8 +23,6 @@ data class WordInfoEntity(
         return WordInfo(
             definitions = definitions,
             pronunciation = pronunciation,
-            tenses = tenses,
-            attributes = attributes,
             relatedTerms  = relatedTerms,
             word = word,
             examples = examples,
