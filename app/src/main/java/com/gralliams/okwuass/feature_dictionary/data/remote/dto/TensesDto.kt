@@ -1,6 +1,6 @@
 package com.gralliams.okwuass.feature_dictionary.data.remote.dto
 
-data class Tenses(
+data class TensesDto(
     val infinitive: Any?,
     val imperative: Any?,
     val simplePast: Any?,
