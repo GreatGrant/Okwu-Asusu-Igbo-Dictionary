@@ -1,5 +1,6 @@
 package com.gralliams.okwuass.feature_dictionary.data.remote.dto
 
-class Pronunciation {
-
-}
+data class Pronunciation(
+    val audio: String,
+    val speaker: String
+)
