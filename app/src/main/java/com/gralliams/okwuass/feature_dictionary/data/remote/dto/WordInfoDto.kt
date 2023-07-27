@@ -9,4 +9,8 @@ data class WordInfoDto
     val attributes: Attributes,
     val relatedTerms: List<String>,
     val word: String,
-    val examples: List<Example>)
+    val examples: List<Example>,
+    val id: String,
+    val wordClass: String,
+    val nsibidi: String
+            )
