@@ -5,5 +5,5 @@ data class ExampleDto(
     val english: String,
     val nsibidiCharacters: List<Any>,
     val type: String,
-    val pronunciationDtos: List<PronunciationDto>
+    val pronunciations: List<PronunciationDto>
 )
