@@ -10,7 +10,7 @@ class WordInfo(
     val pronunciation: String,
     val relatedTerms: List<String>,
     val word: String,
-    val examples: List<ExampleDto>,
+    val examples: List<Example>,
     val id: String,
     val wordClass: String,
     val nsibidi: String

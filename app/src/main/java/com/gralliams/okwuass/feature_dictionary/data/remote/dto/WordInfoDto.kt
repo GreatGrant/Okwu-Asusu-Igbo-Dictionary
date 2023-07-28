@@ -20,8 +20,6 @@ data class WordInfoDto
         return WordInfo(
             definitions = definitions,
             pronunciation = pronunciation,
-            tenses = tenses,
-            attributes = attributes,
             relatedTerms = relatedTerms,
             word = word,
             examples = examples,
