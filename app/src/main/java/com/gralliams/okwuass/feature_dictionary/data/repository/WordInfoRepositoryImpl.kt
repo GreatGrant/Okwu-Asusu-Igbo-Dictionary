@@ -15,7 +15,7 @@ class WordInfoRepositoryImpl(
     private val dao: WordInfoDao
 ):WordInfoRepository {
 
-    override fun getWordRepository(word: String): Flow<Resource<List<WordInfo>>> = flow{
+    override fun getWordInfo(word: String): Flow<Resource<List<WordInfo>>> = flow{
         emit(Resource.Loading())
 
         // read cached data from database and map data object to domain level object
