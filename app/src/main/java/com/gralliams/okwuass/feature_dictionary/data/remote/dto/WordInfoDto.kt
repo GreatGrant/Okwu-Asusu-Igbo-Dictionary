@@ -1,5 +1,6 @@
 package com.gralliams.okwuass.feature_dictionary.data.remote.dto
 
+import com.gralliams.okwuass.feature_dictionary.data.local.entity.WordInfoEntity
 import com.gralliams.okwuass.feature_dictionary.domain.model.WordInfo
 
 data class WordInfoDto
@@ -16,13 +17,13 @@ data class WordInfoDto
     val wordClass: String,
     val nsibidi: String
             ) {
-    fun toWordInfo(): WordInfo {
-        return WordInfo(
+    fun toWordInfoEntity(): WordInfoEntity {
+        return WordInfoEntity(
             definitions = definitions,
             pronunciation = pronunciation,
             relatedTerms = relatedTerms,
             word = word,
-            examples = examples,
+            examples = examples.map { it.toExample() },
             id = id,
             wordClass = wordClass,
             nsibidi = nsibidi
