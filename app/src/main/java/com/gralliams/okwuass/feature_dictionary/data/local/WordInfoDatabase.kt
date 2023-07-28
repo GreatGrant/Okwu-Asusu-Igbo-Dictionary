@@ -7,6 +7,7 @@ import com.gralliams.okwuass.feature_dictionary.data.local.entity.WordInfoEntity
     entities = [WordInfoEntity::class],
     version = 1
 )
+@TypeConverters(Converters::class)
 abstract class WordInfoDatabase {
     abstract val dao: WordInfoDao
 }
