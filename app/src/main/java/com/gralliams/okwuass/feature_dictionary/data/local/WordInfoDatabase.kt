@@ -1,6 +1,7 @@
 package com.gralliams.okwuass.feature_dictionary.data.local
 
 import androidx.room.Database
+import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.gralliams.okwuass.feature_dictionary.data.local.entity.WordInfoEntity
 
@@ -9,6 +10,6 @@ import com.gralliams.okwuass.feature_dictionary.data.local.entity.WordInfoEntity
     version = 1
 )
 @TypeConverters(Converters::class)
-abstract class WordInfoDatabase {
+abstract class WordInfoDatabase: RoomDatabase(){
     abstract val dao: WordInfoDao
 }

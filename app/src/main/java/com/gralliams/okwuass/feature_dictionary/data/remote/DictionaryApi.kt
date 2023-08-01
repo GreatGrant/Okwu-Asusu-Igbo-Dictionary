@@ -10,14 +10,14 @@ interface DictionaryApi {
     //https://igboapi.com/api/v1/words?keyword={word}&page=1
     // https://igboapi.com/api/v1/words?keyword=go&examples=true&page=1
     @Headers(
-        "User-Agent: PostmanRuntime/7.32.3",
-        "Accept: */*",
-        "Accept-Encoding: gzip, deflate, br",
-        "Connection: keep-alive",
         "X-API-KEY: $API_KEY",
     )
-    @GET("words?keyword={word}&examples=true")
+    @GET("/words?keyword={word}&examples=true")
     suspend fun getWordInfo(
         @Path("word") word: String
     ): List<WordInfoDto>
+
+    companion object{
+        const val BASE_URL = "https://igboapi.com/api/v1/"
+    }
 }
