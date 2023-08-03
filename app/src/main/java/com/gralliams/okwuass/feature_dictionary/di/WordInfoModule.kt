@@ -1,12 +1,13 @@
-package com.gralliams.okwuass.feature_dictionary.data.util
+package com.gralliams.okwuass.feature_dictionary.di
 
 import android.app.Application
 import androidx.room.Room
 import com.google.gson.Gson
-import com.gralliams.okwuass.feature_dictionary.data.local.WordInfoDao
+import com.gralliams.okwuass.feature_dictionary.data.local.Converters
 import com.gralliams.okwuass.feature_dictionary.data.local.WordInfoDatabase
 import com.gralliams.okwuass.feature_dictionary.data.remote.DictionaryApi
 import com.gralliams.okwuass.feature_dictionary.data.repository.WordInfoRepositoryImpl
+import com.gralliams.okwuass.feature_dictionary.data.util.GsonParser
 import com.gralliams.okwuass.feature_dictionary.domain.repository.WordInfoRepository
 import com.gralliams.okwuass.feature_dictionary.domain.use_case.GetWordInfo
 import dagger.Module
@@ -23,35 +24,29 @@ object WordInfoModule {
 
     @Provides
     @Singleton
-    fun provideGetWordInfoUseCase(repository: WordInfoRepository): GetWordInfo{
-        return GetWordInfo(repository)
-    }
+    fun provideGetWordInfoUseCase(repository: WordInfoRepository): GetWordInfo =
+        GetWordInfo(repository)
 
     @Provides
     @Singleton
     fun provideWordInfoRepository(
-        api: DictionaryApi,
-        db: WordInfoDatabase
-    ): WordInfoRepository{
-        return WordInfoRepositoryImpl(api, db.dao)
-    }
+        db: WordInfoDatabase,
+        api: DictionaryApi
+    ): WordInfoRepository = WordInfoRepositoryImpl(api, db.dao)
 
     @Provides
     @Singleton
-    fun provideWordInfoDatabase(app: Application): WordInfoDatabase{
-        return Room.databaseBuilder(
+    fun provideWordInfoDatabase(app: Application): WordInfoDatabase =
+        Room.databaseBuilder(
             app, WordInfoDatabase::class.java, "word_db"
-        ).addTypeConverter(GsonParser(Gson()))
-            .build()
-    }
+        ).addTypeConverter(Converters(GsonParser(Gson()))).build()
 
     @Provides
     @Singleton
-    fun provideDictionaryApi(): DictionaryApi{
-        return Retrofit.Builder()
+    fun providesDictionaryApi(): DictionaryApi =
+        Retrofit.Builder()
             .baseUrl(DictionaryApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(DictionaryApi::class.java)
-    }
 }

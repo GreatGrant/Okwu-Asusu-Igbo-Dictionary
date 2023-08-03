@@ -7,7 +7,8 @@ import com.gralliams.okwuass.feature_dictionary.data.local.entity.WordInfoEntity
 
 @Database(
     entities = [WordInfoEntity::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class WordInfoDatabase: RoomDatabase(){
