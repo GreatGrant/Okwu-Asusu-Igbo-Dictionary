@@ -4,13 +4,17 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -20,99 +24,73 @@ import com.gralliams.okwuass.feature_dictionary.presentation.WordInfoItem
 import com.gralliams.okwuass.feature_dictionary.presentation.WordInfoState
 import com.gralliams.okwuass.feature_dictionary.presentation.WordInfoViewModel
 import com.gralliams.okwuass.ui.theme.OkwuAsụsụTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             OkwuAsụsụTheme {
-                Surface(color = MaterialTheme.colors.background) {
-                    DictionaryApp()
-                }
-            }
-        }
-    }
-}
+                val viewModel: WordInfoViewModel = hiltViewModel()
+                val state = viewModel.state.value
+                val scaffoldState = rememberScaffoldState()
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@Composable
-fun DictionaryApp() {
-    val viewModel: WordInfoViewModel = hiltViewModel()
-    val state = viewModel.state.value
-    val searchQuery = viewModel.searchQuery.value // Access searchQuery separately
-
-    val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
-
-    LaunchedEffect(key1 = scaffoldState.snackbarHostState) {
-        // Observe the eventFlow to show Snackbar whenever a ShowSnackbar event is emitted
-        viewModel.eventFlow.collect { event ->
-            when (event) {
-                is WordInfoViewModel.UIEvent.ShowSnackbar -> {
-                    scaffoldState.snackbarHostState.showSnackbar(event.message)
-                }
-            }
-        }
-    }
-
-    Scaffold(
-        scaffoldState = scaffoldState,
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = "Okwu Asụsụ Dictionary")
-                },
-                actions = {
-                    DictionarySearchBar(
-                        searchQuery = searchQuery, // Pass searchQuery as a parameter
-                        onSearchQueryChanged = { query ->
-                            viewModel.search(query)
+                LaunchedEffect(key1 = true) {
+                    viewModel.eventFlow.collectLatest { event ->
+                        when (event) {
+                            is WordInfoViewModel.UIEvent.ShowSnackbar -> {
+                                scaffoldState.snackbarHostState.showSnackbar(
+                                    message = event.message
+                                )
+                            }
                         }
-                    )
+                    }
                 }
-            )
-        }
-    ) {
-        WordInfoList(state = state) // Pass the entire state object
-    }
-}
 
-@Composable
-fun DictionarySearchBar(
-    searchQuery: String,
-    onSearchQueryChanged: (String) -> Unit
-) {
-    var query by remember { mutableStateOf(searchQuery) }
-    val scope = rememberCoroutineScope()
 
-    OutlinedTextField(
-        value = query,
-        onValueChange = {
-            query = it
-            scope.launch {
-                delay(300) // debounce time
-                onSearchQueryChanged(it)
+                Scaffold(scaffoldState = scaffoldState) { padding ->
+                    Box(
+                        modifier = Modifier.background(MaterialTheme.colors.background)
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp)
+                        ) {
+                            // Move the TextField inside the Column
+                            TextField(
+                                value = viewModel.searchQuery.value,
+                                onValueChange =  viewModel::onSearch ,
+                                modifier = Modifier.fillMaxWidth(),
+                                placeholder = { Text(text = "Search...") }
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                            LazyColumn(
+                                modifier = Modifier.fillMaxSize()
+                            ) {
+                                items(state.wordInfoItems.size) { i ->
+                                    val wordInfo = state.wordInfoItems[i]
+                                    if (i > 0) {
+                                        Spacer(modifier = Modifier.height(8.dp))
+                                    }
+                                    WordInfoItem(wordInfo = wordInfo)
+                                    if (i < state.wordInfoItems.size - 1) {
+                                        Divider()
+                                    }
+                                }
+                            }
+                        }
+                        if (state.isLoading)
+                            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                    }
+                }
             }
-        },
-        modifier = Modifier.fillMaxWidth(),
-        label = { Text(text = "Search") },
-        leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = null) }
-    )
-}
-
-@Composable
-fun WordInfoList(state: WordInfoState) {
-    LazyColumn(
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(state.wordInfoItems) { wordInfo ->
-            WordInfoItem(wordInfo = wordInfo)
         }
     }
 }
