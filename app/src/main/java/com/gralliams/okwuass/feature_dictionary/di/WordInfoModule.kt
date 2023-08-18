@@ -1,3 +1,5 @@
+package com.gralliams.okwuass.feature_dictionary.di
+
 import android.app.Application
 import androidx.room.Room
 import com.google.gson.Gson
@@ -44,7 +46,6 @@ object WordInfoModule {
     @Provides
     @Singleton
     fun providesDictionaryApi(): DictionaryApi {
-
         // Create an HttpLoggingInterceptor instance for logging API responses
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -61,7 +62,9 @@ object WordInfoModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        // Return the created DictionaryApi instance
+
         return retrofit.create(DictionaryApi::class.java)
+
     }
+
 }
