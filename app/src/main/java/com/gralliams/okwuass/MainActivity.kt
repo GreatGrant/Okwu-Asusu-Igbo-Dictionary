@@ -12,6 +12,7 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gralliams.okwuass.feature_dictionary.presentation.WordInfoItem
@@ -58,10 +59,11 @@ class MainActivity : ComponentActivity() {
 
         Scaffold(scaffoldState = scaffoldState) { innerPadding ->
 
-            Surface(modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .background(MaterialTheme.colors.surface),
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .background(MaterialTheme.colors.surface),
                 color = MaterialTheme.colors.background
 
             ) {
@@ -101,6 +103,21 @@ class MainActivity : ComponentActivity() {
 
             }
 
+        }
+    }
+
+    @Preview(
+        showBackground = true,
+        showSystemUi = true
+    )
+    @Composable
+    fun OkwuAsusuPreview() {
+        OkwuAsụsụTheme {
+            val viewModel: WordInfoViewModel = hiltViewModel()
+            val state = viewModel.state.value
+            val scaffoldState = rememberScaffoldState()
+
+            OkwuAsusuApp(viewModel = viewModel, scaffoldState = scaffoldState, state = state)
         }
     }
 }
