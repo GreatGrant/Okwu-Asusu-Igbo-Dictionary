@@ -1,35 +1,25 @@
 package com.gralliams.okwuass
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gralliams.okwuass.feature_dictionary.presentation.WordInfoItem
 import com.gralliams.okwuass.feature_dictionary.presentation.WordInfoState
 import com.gralliams.okwuass.feature_dictionary.presentation.WordInfoViewModel
 import com.gralliams.okwuass.ui.theme.OkwuAsụsụTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -53,44 +43,64 @@ class MainActivity : ComponentActivity() {
                     }
                 }
 
+                OkwuAsusuApp(viewModel, scaffoldState, state)
 
-                Scaffold(scaffoldState = scaffoldState) { padding ->
-                    Box(
-                        modifier = Modifier.background(MaterialTheme.colors.background)
+            }
+        }
+    }
+
+    @Composable
+    private fun OkwuAsusuApp(
+        viewModel: WordInfoViewModel,
+        scaffoldState: ScaffoldState,
+        state: WordInfoState
+    ) {
+
+        Scaffold(scaffoldState = scaffoldState) { innerPadding ->
+
+            Surface(modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .background(MaterialTheme.colors.surface),
+                color = MaterialTheme.colors.background
+
+            ) {
+                Box(
+                    modifier = Modifier.background(MaterialTheme.colors.background)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp)
                     ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(16.dp)
+                        TextField(
+                            value = viewModel.searchQuery.value,
+                            onValueChange = { newText -> viewModel.search(newText) }, // Adjust the parameter type as needed
+                            modifier = Modifier.fillMaxWidth(),
+                            placeholder = { Text(text = "Search...") }
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize()
                         ) {
-                            // Move the TextField inside the Column
-                            TextField(
-                                value = viewModel.searchQuery.value,
-                                onValueChange =  viewModel::onSearch ,
-                                modifier = Modifier.fillMaxWidth(),
-                                placeholder = { Text(text = "Search...") }
-                            )
-                            Spacer(modifier = Modifier.height(16.dp))
-                            LazyColumn(
-                                modifier = Modifier.fillMaxSize()
-                            ) {
-                                items(state.wordInfoItems.size) { i ->
-                                    val wordInfo = state.wordInfoItems[i]
-                                    if (i > 0) {
-                                        Spacer(modifier = Modifier.height(8.dp))
-                                    }
-                                    WordInfoItem(wordInfo = wordInfo)
-                                    if (i < state.wordInfoItems.size - 1) {
-                                        Divider()
-                                    }
+                            items(state.wordInfoItems.size) { i ->
+                                val wordInfo = state.wordInfoItems[i]
+                                if (i > 0) {
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                }
+                                WordInfoItem(wordInfo = wordInfo)
+                                if (i < state.wordInfoItems.size - 1) {
+                                    Divider()
                                 }
                             }
                         }
-                        if (state.isLoading)
-                            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                     }
+                    if (state.isLoading)
+                        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
+
             }
+
         }
     }
 }
