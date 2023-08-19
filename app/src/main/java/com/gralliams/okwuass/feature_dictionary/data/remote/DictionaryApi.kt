@@ -19,9 +19,7 @@ interface DictionaryApi {
 //        @Path("word") word: String
 //    ): List<WordInfoDto>
 
-    @Headers(
-        "X-API-KEY: $API_KEY",
-    )
+    @Headers("X-API-KEY: $API_KEY")
     @GET("/words")
     suspend fun getWordInfo(
         @Query("keyword") word: String,
