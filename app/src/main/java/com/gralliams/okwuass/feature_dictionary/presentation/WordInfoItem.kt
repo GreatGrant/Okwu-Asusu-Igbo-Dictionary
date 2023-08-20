@@ -1,12 +1,17 @@
 package com.gralliams.okwuass.feature_dictionary.presentation
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,15 +24,30 @@ fun WordInfoItem(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
-        Text(
-            text = wordInfo.word,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = wordInfo.word,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+            Text(
+                text = wordInfo.nsibidi ?: "",
+                color = Color.Gray,
+                fontStyle = FontStyle.Italic
+            )
+            Text(
+                text = wordInfo.wordClass,
+                color = Color.Gray,
+                fontStyle = FontStyle.Italic
+            )
+        }
         Text(text = wordInfo.pronunciation ?: "", fontWeight = FontWeight.Light)
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = wordInfo.nsibidi ?: "")
         wordInfo.definitions.forEachIndexed { i, definition ->
             Text(text = "${i + 1}. $definition")
             Spacer(modifier = Modifier.height(8.dp))
