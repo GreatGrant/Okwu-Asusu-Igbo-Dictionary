@@ -1,5 +1,6 @@
 package com.gralliams.okwuass.feature_dictionary.presentation
 
+import android.media.MediaPlayer
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,10 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +32,9 @@ fun WordInfoItem(
     wordInfo: WordInfo,
     modifier: Modifier = Modifier
 ) {
+
+    var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
+
     Column(modifier = modifier) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -58,8 +66,20 @@ fun WordInfoItem(
                 tint = Color.Blue,
                 modifier = Modifier
                     .clickable {
-                        //Todo() Handle playing the pronunciation audio here
+                        // Release any previously created MediaPlayer instances
+                        mediaPlayer?.release()
 
+                        // Create a new MediaPlayer instance and set the data source
+                        mediaPlayer = MediaPlayer().apply {
+                            setDataSource(wordInfo.pronunciation)
+                            prepare()
+                            start()
+                            setOnCompletionListener {
+                                // Release the MediaPlayer after audio is completed
+                                mediaPlayer?.release()
+                                mediaPlayer = null
+                            }
+                        }
                     }
             )
         }

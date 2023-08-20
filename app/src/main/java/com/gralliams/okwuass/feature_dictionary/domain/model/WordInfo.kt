@@ -8,7 +8,7 @@ import com.gralliams.okwuass.feature_dictionary.data.remote.dto.TensesDto
 class WordInfo(
     val definitions: List<String>,
     val pronunciation: String?,
-    val relatedTerms: List<String>,
+    val relatedTerms: List<String>?,
     val word: String,
     val examples: List<Example>,
     val id: String,
