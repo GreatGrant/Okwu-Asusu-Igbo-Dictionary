@@ -20,11 +20,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gralliams.okwuass.R
 import com.gralliams.okwuass.feature_dictionary.domain.model.WordInfo
 
 @Composable
@@ -34,6 +36,7 @@ fun WordInfoItem(
 ) {
 
     var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
+    var isPlaying by remember { mutableStateOf<Boolean>(false) }
 
     Column(modifier = modifier) {
         Row(
@@ -60,26 +63,37 @@ fun WordInfoItem(
         }
 //        Text(text = wordInfo.pronunciation ?: "", fontWeight = FontWeight.Light)
         wordInfo.pronunciation?.let{
+
             Icon(
-               imageVector = Icons.Default.PlayArrow,
-                contentDescription = "Play Pronunciation",
+                painter = if (isPlaying) painterResource(id = R.drawable.baseline_pause_24) else painterResource(id = R.drawable.baseline_play_arrow_24),
+                contentDescription = "Play/Pause Pronunciation",
                 tint = Color.Blue,
                 modifier = Modifier
                     .clickable {
-                        // Release any previously created MediaPlayer instances
-                        mediaPlayer?.release()
+                        // Toggle the playback state flag
+                        isPlaying = !isPlaying
 
-                        // Create a new MediaPlayer instance and set the data source
-                        mediaPlayer = MediaPlayer().apply {
-                            setDataSource(wordInfo.pronunciation)
-                            prepare()
-                            start()
-                            setOnCompletionListener {
-                                // Release the MediaPlayer after audio is completed
-                                mediaPlayer?.release()
-                                mediaPlayer = null
+                        if (isPlaying){
+                            // Release any previously created MediaPlayer instances
+                            mediaPlayer?.release()
+
+                            // Create a new MediaPlayer instance and set the data source
+                            mediaPlayer = MediaPlayer().apply {
+                                setDataSource(wordInfo.pronunciation)
+                                prepare()
+                                start()
+                                setOnCompletionListener {
+                                    // Release the MediaPlayer after audio is completed
+                                    mediaPlayer?.release()
+                                    mediaPlayer = null
+                                    isPlaying = false // Reset the flag when playback is done
+                                }
                             }
+                        }else{
+                            mediaPlayer?.release()
+                            mediaPlayer = null
                         }
+
                     }
             )
         }
