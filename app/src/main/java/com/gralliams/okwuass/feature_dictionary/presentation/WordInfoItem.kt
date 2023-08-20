@@ -53,5 +53,12 @@ fun WordInfoItem(
             Spacer(modifier = Modifier.height(8.dp))
         }
         Spacer(modifier = Modifier.height(16.dp))
+        Text(text = "Examples:", fontWeight = FontWeight.Bold)
+        wordInfo.examples.forEachIndexed { i, example ->
+            Text(text = "${i + 1}. ${example.igbo}")
+            example.english?.let { Text(text = it) }
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
