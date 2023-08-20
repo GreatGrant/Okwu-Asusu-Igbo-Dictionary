@@ -99,4 +99,7 @@ dependencies {
 
     // Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:2.5.2"
+
+    implementation "androidx.media:media:1.6.0"
+
 }
