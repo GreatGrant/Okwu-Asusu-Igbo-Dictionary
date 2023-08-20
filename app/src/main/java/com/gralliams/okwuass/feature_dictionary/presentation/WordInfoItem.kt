@@ -1,12 +1,16 @@
 package com.gralliams.okwuass.feature_dictionary.presentation
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,7 +50,19 @@ fun WordInfoItem(
                 fontStyle = FontStyle.Italic
             )
         }
-        Text(text = wordInfo.pronunciation ?: "", fontWeight = FontWeight.Light)
+//        Text(text = wordInfo.pronunciation ?: "", fontWeight = FontWeight.Light)
+        wordInfo.pronunciation?.let{
+            Icon(
+               imageVector = Icons.Default.PlayArrow,
+                contentDescription = "Play Pronunciation",
+                tint = Color.Blue,
+                modifier = Modifier
+                    .clickable {
+                        //Todo() Handle playing the pronunciation audio here
+
+                    }
+            )
+        }
         Spacer(modifier = Modifier.height(16.dp))
         wordInfo.definitions.forEachIndexed { i, definition ->
             Text(text = "${i + 1}. $definition")
