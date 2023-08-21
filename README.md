@@ -32,7 +32,7 @@ The Okwu Asụ̀sụ̄ Igbo Dictionary App is a language learning application th
 
 ## Setup
 
-1. Clone the repository: `git clone https://github.com/GreatGrant/igbo-dictionary-app.git`
+1. Clone the repository: `git clone https://github.com/GreatGrant/Okwu-Asusu-Igbo-Dictionary.git` 
 2. Open the project in Android Studio.
 3. Replace the API key in the `local.properties` file with your actual API key.
 
