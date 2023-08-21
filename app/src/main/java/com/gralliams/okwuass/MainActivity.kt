@@ -91,7 +91,7 @@ class MainActivity : ComponentActivity() {
                                 if (i > 0) {
                                     Spacer(modifier = Modifier.height(8.dp))
                                 }
-                                WordInfoItem(wordInfo = wordInfo)
+                                WordInfoItem(wordInfo = wordInfo, wordInfoViewModel = viewModel)
                                 if (i < state.wordInfoItems.size - 1) {
                                     Divider()
                                 }

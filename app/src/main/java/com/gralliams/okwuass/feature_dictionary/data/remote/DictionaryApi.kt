@@ -22,10 +22,10 @@ interface DictionaryApi {
 
 
     @Headers("X-API-KEY: $API_KEY")
-    @GET("words")
+    @GET("words?range=[0, 24]")
     suspend fun getWordInfo(
         @Query("keyword") word: String,
-        @Query("examples") examples: Boolean = true
+        @Query("examples") examples: Boolean = true,
     ): List<WordInfoDto>
 
     companion object{

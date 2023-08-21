@@ -13,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,11 +33,14 @@ import com.gralliams.okwuass.feature_dictionary.domain.model.WordInfo
 @Composable
 fun WordInfoItem(
     wordInfo: WordInfo,
+    wordInfoViewModel: WordInfoViewModel,
     modifier: Modifier = Modifier
 ) {
 
-    var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
     var isPlaying by remember { mutableStateOf<Boolean>(false) }
+
+    // Observe the isPlaying state from the ViewModel
+    isPlaying = wordInfoViewModel.isPlaying.collectAsState(initial = false).value
 
     Column(modifier = modifier) {
         Row(
@@ -72,30 +76,12 @@ fun WordInfoItem(
                 tint = Color.Blue,
                 modifier = Modifier
                     .clickable {
-                        // Toggle the playback state flag
-                        isPlaying = !isPlaying
 
-                        if (isPlaying){
-                            // Release any previously created MediaPlayer instances
-                            mediaPlayer?.release()
-
-                            // Create a new MediaPlayer instance and set the data source
-                            mediaPlayer = MediaPlayer().apply {
-                                setDataSource(wordInfo.pronunciation)
-                                prepare()
-                                start()
-                                setOnCompletionListener {
-                                    // Release the MediaPlayer after audio is completed
-                                    mediaPlayer?.release()
-                                    mediaPlayer = null
-                                    isPlaying = false // Reset the flag when playback is done
-                                }
-                            }
-                        }else{
-                            mediaPlayer?.release()
-                            mediaPlayer = null
+                        if (isPlaying) {
+                        } else {
+                            isPlaying = true
+                            wordInfoViewModel.playPronunciation(it)
                         }
-
                     }
             )
         }
