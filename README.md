@@ -78,4 +78,4 @@ This project is built by the collaborative efforts of contributors. The Igbo API
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [GNU License](LICENSE).
