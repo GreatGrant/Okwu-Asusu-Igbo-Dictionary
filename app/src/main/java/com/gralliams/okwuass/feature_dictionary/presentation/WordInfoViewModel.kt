@@ -45,6 +45,7 @@ class WordInfoViewModel @Inject constructor (
 
     private val _isPlaying = MutableStateFlow(false)
     val isPlaying: Flow<Boolean> = _isPlaying
+
     fun playPronunciation(url: String) {
         stopPlaying()
         mediaPlayer = MediaPlayer().apply {
