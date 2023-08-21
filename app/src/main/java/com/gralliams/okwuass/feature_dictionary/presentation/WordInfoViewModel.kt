@@ -1,4 +1,5 @@
 package com.gralliams.okwuass.feature_dictionary.presentation
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -33,6 +34,8 @@ class WordInfoViewModel @Inject constructor (
 
     private var searchJob: Job? = null
     fun search(query: String){
+        Log.d("WordInfoViewModel", "search: Entered with query: $query")
+
         _searchQuery.value = query
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
@@ -41,12 +44,14 @@ class WordInfoViewModel @Inject constructor (
                 .onEach { result ->
                     when(result){
                         is Resource.Success -> {
+                            Log.d("WordInfoViewModel", "search: Resource.Success: ${result.data}")
                             _state.value = state.value.copy(
                                 wordInfoItems = result.data ?: emptyList(),
                                 isLoading = false
                             )
                         }
                         is Resource.Error -> {
+                            Log.d("WordInfoViewModel", "search: Resource.Error: ${result.message}")
                             _state.value = state.value.copy(
                                 wordInfoItems = result.data ?: emptyList(),
                                 isLoading = false
@@ -57,6 +62,7 @@ class WordInfoViewModel @Inject constructor (
                             ))
                         }
                         is Resource.Loading -> {
+                            Log.d("WordInfoViewModel", "search: Resource.Loading")
                             _state.value = state.value.copy(
                                 wordInfoItems = result.data ?: emptyList(),
                                 isLoading = true

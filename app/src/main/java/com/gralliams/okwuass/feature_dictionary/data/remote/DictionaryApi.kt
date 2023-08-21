@@ -11,6 +11,7 @@ const val API_KEY = BuildConfig.API_KEY
 interface DictionaryApi {
     //https://igboapi.com/api/v1/words?keyword={word}&page=1
     // https://igboapi.com/api/v1/words?keyword=go&examples=true&page=1
+//    https://igboapi.com/api/v1/words?keyword=dog&examples=true
 //    @Headers(
 //        "X-API-KEY: $API_KEY",
 //    )
@@ -18,6 +19,7 @@ interface DictionaryApi {
 //    suspend fun getWordInfo(
 //        @Path("word") word: String
 //    ): List<WordInfoDto>
+
 
     @Headers("X-API-KEY: $API_KEY")
     @GET("words")

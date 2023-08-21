@@ -40,6 +40,7 @@ class MainActivity : ComponentActivity() {
                                     message = event.message
                                 )
                             }
+
                         }
                     }
                 }

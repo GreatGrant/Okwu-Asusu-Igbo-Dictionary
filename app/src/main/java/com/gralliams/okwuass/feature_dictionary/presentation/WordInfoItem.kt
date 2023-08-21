@@ -44,12 +44,14 @@ fun WordInfoItem(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = wordInfo.word,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black
-            )
+            wordInfo.word?.let {
+                Text(
+                    text = it,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            }
             Text(
                 text = wordInfo.nsibidi ?: "",
                 color = Color.Gray,

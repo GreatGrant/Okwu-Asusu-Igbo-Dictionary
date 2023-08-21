@@ -14,7 +14,7 @@ data class WordInfoEntity(
     val definitions: List<String>,
     val pronunciation: String,
     val relatedTerms: List<String>?,
-    val word: String,
+    val word: String?,
     val examples: List<Example>,
     @PrimaryKey val id: String,
     val wordClass: String,
