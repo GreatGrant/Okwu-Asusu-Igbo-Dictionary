@@ -3,7 +3,7 @@
 The Okwu Asụ̀sụ̄ Igbo Dictionary App is a language learning application that allows users to explore and understand the Igbo language. This app utilizes the [Igbo API](https://github.com/nkowaokwu/igbo_api) to provide accurate and up-to-date information about Igbo words and their meanings. The app follows a clean architecture approach, ensuring modularity and maintainability. It also incorporates caching to enhance user experience.
 
 ## Screeshots
-![20230821_184526](https://github.com/GreatGrant/Okwu-Asusu-Igbo-Dictionary/assets/62026220/8e338491-b00b-4117-8edc-898bc74e8541)
+![20230821_184526](https://github.com/GreatGrant/Okwu-Asusu-Igbo-Dictionary/assets/62026220/8e338491-b00b-4117-8edc-898bc74e8541=250x)
 
 ## Features
 
