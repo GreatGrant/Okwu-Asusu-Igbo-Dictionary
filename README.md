@@ -30,12 +30,16 @@ The Okwu Asụ̀sụ̄ Igbo Dictionary App is a language learning application th
 - [Room](https://developer.android.com/jetpack/androidx/releases/room) - Android architecture components for SQLite database interactions.
 - [AndroidX Media](https://developer.android.com/jetpack/androidx/releases/media) - Android architecture components for media playback.
 
+## Bugs and Issues
+
+Please note that the app is currently under development and bugs may be present. Bug reports and suggestions are welcome. The app also requires active internet connection to function properly.
+
 ## Setup
 
 1. Clone the repository: `git clone https://github.com/GreatGrant/Okwu-Asusu-Igbo-Dictionary.git` 
-2. Open the project in Android Studio.
+2. Open the project in Android Studio and download all necessary dependencies.
 3. Replace the API key in the `local.properties` file with your actual API key.
-
+   
 ## Architecture Overview
 
 The Igbo Dictionary App follows the clean architecture approach, separating the app into different layers:
@@ -43,6 +47,7 @@ The Igbo Dictionary App follows the clean architecture approach, separating the 
 - **Presentation**: Contains UI-related code, built using Jetpack Compose.
 - **Domain**: Contains business logic and use cases.
 - **Data**: Responsible for retrieving and storing data. Integrates with the API and local storage.
+
 
 ## How to Contribute
 
@@ -53,6 +58,15 @@ Contributions to the Igbo Dictionary App project are welcome! Here's how you can
 3. Implement your changes and ensure they are well-tested.
 4. Push your changes to your fork: `git push origin feature-name`.
 5. Open a pull request to the main repository.
+
+For major changes, please open an issue first to discuss what you would like to change.
+
+## Contact
+If you have any questions or suggestions, feel free to contact me on [X](https://twitter.com/iAmGreatGrant) or [LinkedIn](https://www.linkedin.com/in/Great-Grant-Williams). You can also raise an issue in the [repository](https://github.com/GreatGrant/Okwu-Asusu-Igbo-Dictionary).
+
+## Support
+If you like this project, please consider supporting it by giving it a star ⭐️.
+
 
 ## Credits
 
