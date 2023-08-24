@@ -22,6 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,7 +47,7 @@ fun WordInfoItem(
     Column(modifier = modifier) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
         ) {
             wordInfo.word?.let {
@@ -59,6 +61,7 @@ fun WordInfoItem(
             Text(
                 text = wordInfo.nsibidi ?: "",
                 color = Color.Gray,
+                fontFamily = FontFamily(Font(R.font.akagu2020_3)),
                 fontStyle = FontStyle.Italic
             )
             Text(
@@ -67,7 +70,6 @@ fun WordInfoItem(
                 fontStyle = FontStyle.Italic
             )
         }
-//        Text(text = wordInfo.pronunciation ?: "", fontWeight = FontWeight.Light)
         wordInfo.pronunciation?.let{
 
             Icon(
