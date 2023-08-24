@@ -1,6 +1,5 @@
 package com.gralliams.okwuass.feature_dictionary.presentation
 
-import android.media.MediaPlayer
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -26,7 +23,6 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gralliams.okwuass.R
@@ -47,7 +43,7 @@ fun WordInfoItem(
     Column(modifier = modifier) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End,
+            horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
             wordInfo.word?.let {
@@ -64,8 +60,9 @@ fun WordInfoItem(
                 fontFamily = FontFamily(Font(R.font.akagu2020_3)),
                 fontStyle = FontStyle.Italic
             )
+
             Text(
-                text = wordInfo.wordClass,
+                text = getWordClass(wordInfo.wordClass) ,
                 color = Color.Gray,
                 fontStyle = FontStyle.Italic
             )
@@ -100,5 +97,32 @@ fun WordInfoItem(
             Spacer(modifier = Modifier.height(8.dp))
         }
         Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
+fun getWordClass(type: String): String {
+
+    return  when (type) {
+        "ADJ" -> return "Adjective"
+        "ADV" -> return "Adverb"
+        "AV" -> return "Active verb"
+        "MV" -> return "Medial verb"
+        "PV" -> return "Passive verb"
+        "CJN" -> return "Conjunction"
+        "DEM" -> return "Demonstrative"
+        "NM" -> return "Name"
+        "NNC" -> return "Noun"
+        "NNP" -> return "Proper noun"
+        "CD" -> return "Number"
+        "PREP" -> return "Preposition"
+        "PRN" -> return "Pronoun"
+        "FW" -> return "Foreign word"
+        "QTF" -> return "Quantifier"
+        "WH" -> return "Interrogative"
+        "INTJ" -> return "Interjection"
+        "ISUF" -> return "Inflectional suffix"
+        "ESUF" -> return "Extensional suffix"
+        "SYM" -> return "Punctuations"
+        else -> "Unknown"
     }
 }
