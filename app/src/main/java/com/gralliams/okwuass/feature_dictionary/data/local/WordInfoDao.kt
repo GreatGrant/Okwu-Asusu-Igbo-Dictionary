@@ -10,7 +10,7 @@ import com.gralliams.okwuass.feature_dictionary.data.local.entity.WordInfoEntity
 interface WordInfoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun inertWordInfos(infos: List<WordInfoEntity>)
+    suspend fun insertWordInfos(infos: List<WordInfoEntity>)
 
     @Query("DELETE FROM wordinfoentity WHERE word IN(:words)")
     suspend fun deleteWordInfos(words: List<String>)

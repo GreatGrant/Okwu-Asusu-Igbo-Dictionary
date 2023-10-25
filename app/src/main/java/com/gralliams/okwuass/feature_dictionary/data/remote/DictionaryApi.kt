@@ -4,7 +4,6 @@ import com.gralliams.okwuass.BuildConfig
 import com.gralliams.okwuass.feature_dictionary.data.remote.dto.WordInfoDto
 import retrofit2.http.GET
 import retrofit2.http.Headers
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 const val API_KEY = BuildConfig.API_KEY
@@ -26,6 +25,8 @@ interface DictionaryApi {
     suspend fun getWordInfo(
         @Query("keyword") word: String,
         @Query("examples") examples: Boolean = true,
+        @Query("strict") strict: Boolean = false,
+        @Query("isStandardIgbo") isStandardIgbo: Boolean = true
     ): List<WordInfoDto>
 
     companion object{

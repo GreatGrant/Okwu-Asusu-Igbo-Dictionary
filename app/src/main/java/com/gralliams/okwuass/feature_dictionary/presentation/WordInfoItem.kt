@@ -58,7 +58,6 @@ fun WordInfoItem(
             Text(
                 text = wordInfo.nsibidi ?: "",
                 color = Color.Gray,
-                fontFamily = FontFamily(Font(R.font.akagu2020_3)),
                 fontStyle = FontStyle.Italic,
                 modifier = Modifier.padding(start = 8.dp, end = 8.dp)
             )

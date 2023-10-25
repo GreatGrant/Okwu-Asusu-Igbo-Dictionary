@@ -63,7 +63,7 @@ class WordInfoViewModel @Inject constructor (
 
     }
 
-    fun stopPlaying() {
+    private fun stopPlaying() {
         mediaPlayer?.apply {
             stop()
             release()
