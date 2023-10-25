@@ -6,12 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -78,7 +80,13 @@ class MainActivity : ComponentActivity() {
                     ) {
                         TextField(
                             value = viewModel.searchQuery.value,
-                            onValueChange = { newText -> viewModel.search(newText) }, // Adjust the parameter type as needed
+                            onValueChange = { newText ->
+                                if(!newText.contains('\n'))
+                                    viewModel.search(newText)
+                                 },
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                imeAction = ImeAction.Done
+                            ),
                             modifier = Modifier.fillMaxWidth(),
                             placeholder = { Text(text = "Search...") }
                         )
