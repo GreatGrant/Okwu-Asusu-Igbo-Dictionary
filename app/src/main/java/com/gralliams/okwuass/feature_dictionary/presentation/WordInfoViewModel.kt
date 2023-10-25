@@ -92,10 +92,7 @@ class WordInfoViewModel @Inject constructor (
                                 wordInfoItems = result.data ?: emptyList(),
                                 isLoading = false
                             )
-                            // Play pronunciation audio if available
-                            result.data?.firstOrNull()?.pronunciation?.let {
-                                playPronunciation(it)
-                            }
+
                         }
                         is Resource.Error -> {
                             Log.d("WordInfoViewModel", "search: Resource.Error: ${result.message}")
