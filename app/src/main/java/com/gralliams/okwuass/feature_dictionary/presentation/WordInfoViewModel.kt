@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-//Todo() search: Resource.Success: [] returns empty array when english word input Fix.
+//Todo() search: Resource.Success: [] returns empty array when english word input.
 //Inject use case
 @HiltViewModel
 class WordInfoViewModel @Inject constructor (

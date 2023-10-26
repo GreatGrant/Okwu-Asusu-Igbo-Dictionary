@@ -25,8 +25,6 @@ interface DictionaryApi {
     suspend fun getWordInfo(
         @Query("keyword") word: String,
         @Query("examples") examples: Boolean = true,
-        @Query("strict") strict: Boolean = false,
-        @Query("isStandardIgbo") isStandardIgbo: Boolean = true
     ): List<WordInfoDto>
 
     companion object{
